@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard • Minterest</title>
+
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="styles/main.css?v=2" />
+
+  <!-- Firebase compat v11 -->
+  <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-auth-compat.js"></script>
+</head>
+<body>
+  <!-- Header: index এর মতো logo + menu -->
+  <header class="app-header">
+    <a href="index.html" class="logo" aria-label="Minterest Home" style="display:flex;align-items:center;gap:10px">
+      <span class="logo-badge" aria-hidden="true">Mi</span>
+      <span>Minterest</span>
+    </a>
+    
+    <div class="header-right">
+      <!-- user box -->
+      <div id="user-info" class="user-info" style="display:none;">
+        <img id="user-pic" class="user-pic" src="" alt="User" />
+        <div class="user-text">
+          <span id="user-name"></span>
+          <span id="user-name-first" class="user-name-first"></span>
+          <span id="user-email"></span>
+        </div>
+      </div>
+      <button id="hamburgerBtn" class="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+  <section class="dashboard-header">
+    <div class="header-title">User Activity</div>
+  </section>
+  
+  <div class="shell" style="padding-top:16px;padding-bottom:40px">
+    <!-- নিচের লেখা এক সাইজে রাখতে small-text ইউটিলিটি -->
+    <main class="dashboard-content small-text">
+      <section id="dashboardBody">
+
+        <!-- Column headers (table-like) -->
+        <div class="list-head" id="listHead">
+          <div>User</div>
+          <div>Last login</div>
+          <div>Last active</div>
+          <div>Sessions</div>
+          <div>Device</div>
+          <div>IP</div>
+        </div>
+
+        <!-- Rows will mount here -->
+        <div id="activityList" class="list" aria-live="polite">
+          <!-- ডেমো রো (দেখা যাচ্ছি কিনা টেস্ট করার জন্য); ডাটা আসলে JS দিয়ে এগুলো রিপ্লেস করবে -->
+          <div class="row">
+            <div class="cell user">Mamun (mamun@example.com)</div>
+            <div class="cell last-login">2025-10-05 02:12</div>
+            <div class="cell last-active">2 minutes ago</div>
+            
+            <div class="cell device">Chrome • Windows</div>
+            <div class="cell ip">103.xx.xx.12</div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Header dropdown -->
+  <div class="menu" id="headerMenu" hidden><ul></ul></div>
+
+  <!-- App scripts -->
+  <script type="module" src="scripts/config.js?v=2"></script>
+  <script type="module" src="scripts/auth.js?v=2"></script>
+  <script type="module" src="scripts/menu.js?v=2"></script>
+  <script type="module" src="scripts/dashboard.js?v=2"></script>
+
+  <!-- মোবাইলে প্রতিটা সেলে লেবেল দেখাতে helper -->
+  <script>
+    (function(){
+      function setRowLabels(){
+        const headers = Array.from(document.querySelectorAll('#listHead > div')).map(el => el.textContent.trim());
+        document.querySelectorAll('#activityList .row').forEach(row => {
+          const cells = row.querySelectorAll('.cell');
+          cells.forEach((cell, i) => { if (headers[i]) cell.setAttribute('data-label', headers[i]); });
+        });
+      }
+      const target = document.getElementById('activityList');
+      if (target){
+        const obs = new MutationObserver(setRowLabels);
+        obs.observe(target, { childList:true, subtree:true });
+      }
+      document.addEventListener('DOMContentLoaded', setRowLabels);
+    })();
+  </script>
+
+  <style id="mobile-name-toggle">
+  /* ডিফল্ট = মোবাইল: শুধু ছবি + First Name */
+  #user-name, #user-email { display: none !important; }
+  #user-name-first { display: inline !important; }
+
+  /* ডেস্কটপ/ট্যাবলেট (>= 769px): ফুল নেম + ইমেইল */
+  @media (min-width: 769px){
+    #user-name, #user-email { display: inline !important; }
+    #user-name-first { display: none !important; }
+  }
+</style>
+
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Settings • Minterest</title>
+
+  <!--
+    ✅ গার্ডিং স্ট্র্যাটেজি
+    - ডিফল্টে ফর্ম/অ্যাকশন হাইড থাকবে
+    - কেবল সফল অ্যাডমিন ভেরিফিকেশন হলে JS এগুলো শো করবে
+    - নাহলে গার্ড মেসেজ/লগইন লিংক থাকবে
+  -->
+
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="styles/main.css?v=3" />
+
+  <!-- Firebase compat v11 -->
+  <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-auth-compat.js"></script>
+</head>
+<body>
+  <!-- Header -->
+  <header class="app-header">
+    <a href="index.html" class="logo" aria-label="Minterest Home" style="display:flex;align-items:center;gap:10px">
+      <span class="logo-badge" aria-hidden="true">Mi</span>
+      <span>Minterest</span>
+    </a>
+    <div class="header-right">
+      <div id="user-info" class="user-info" style="display:none;">
+        <img id="user-pic" class="user-pic" src="" alt="User" />
+        <div class="user-text">
+          <span id="user-name"></span>
+          <span id="user-name-first" class="user-name-first"></span>
+          <span id="user-email"></span>
+        </div>
+      </div>
+      <button id="hamburgerBtn" class="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="shell">
+    <div class="auth-body">
+      <main class="settings-wrap">
+        <section class="settings-card" aria-labelledby="settings-title">
+          <div class="settings-head">
+            <h1 id="settings-title" class="settings-title">Settings</h1>
+            <small style="color:var(--muted)">Firestore backed</small>
+          </div>
+
+          <div class="settings-body">
+            <!--
+              🔒 ডিফল্টে ফর্ম হাইড। JS অ্যাডমিন ভেরিফাই করে শো করবে।
+              নোট: যদি JS লোড না হয়/ফেইল করে, তখনও ইউজার কিছু এডিট করতে পারবে না।
+            -->
+            <form id="settings-form" class="settings-grid" autocomplete="off" style="display:none;">
+              <label for="images">Images folder URL</label>
+              <input type="url" id="images" placeholder="https://drive.google.com/drive/folders/..." />
+
+              <label for="videos">Videos folder URL</label>
+              <input type="url" id="videos" placeholder="https://drive.google.com/drive/folders/..." />
+
+              <label for="favorites">Favorites folder URL</label>
+              <input type="url" id="favorites" placeholder="https://drive.google.com/drive/folders/..." />
+
+              <label for="apiKey">Drive API Key</label>
+              <input type="text" id="apiKey" placeholder="AIza..." />
+
+              <label for="pwd1">Password 1</label>
+              <input type="text" id="pwd1" placeholder="required password" />
+
+              <label for="pwd2">Password 2</label>
+              <input type="text" id="pwd2" placeholder="alternate password" />
+            </form>
+
+            <div class="settings-actions" style="display:none;">
+              <button id="btnSave" class="btn primary" disabled>Save Settings</button>
+              <button id="btnPing" class="btn" disabled>Test Ping</button>
+            </div>
+
+            <p id="msg" class="hint" style="display:none"></p>
+            <div id="diag" class="diag"></div>
+          </div>
+
+          <!-- Guard message: ডিফল্টে অন -->
+          <div id="guard-msg" class="auth-notice" style="margin-top:12px;">
+            <div class="auth-card">
+              <h2>Admin access required 🔐</h2>
+              <p>অ্যাডমিন যাচাই করা হচ্ছে...</p>
+              <div class="actions">
+                <a class="btn primary" href="login.html">Login</a>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- Header dropdown for menu -->
+  <div class="menu" id="headerMenu" hidden><ul></ul></div>
+
+  <!-- Scripts -->
+  <script type="module" src="scripts/config.js?v=3"></script>
+  <script type="module" src="scripts/auth.js?v=3"></script>
+  <script type="module" src="scripts/menu.js?v=3"></script>
+  <!-- নিচের লাইনে তোমার settings.js (এই ফাইলটাই) লোড হবে -->
+  <script type="module" src="scripts/settings.js?v=4"></script>
+
+  <style id="mobile-name-toggle">
+    /* মোবাইল: শুধু ছবি + First Name */
+    #user-name, #user-email { display: none !important; }
+    #user-name-first { display: inline !important; }
+
+    /* ডেস্কটপ/ট্যাবলেট (>= 769px): ফুল নেম + ইমেইল */
+    @media (min-width: 769px){
+      #user-name, #user-email { display: inline !important; }
+      #user-name-first { display: none !important; }
+    }
+  </style>
+
+  <noscript>
+    <div class="auth-notice" style="margin:16px">
+      <div class="auth-card">
+        <h2>JavaScript required</h2>
+        <p>এই পেজটি চালাতে জাভাস্ক্রিপ্ট লাগবে।</p>
+      </div>
+    </div>
+  </noscript>
+</body>
+</html>

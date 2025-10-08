@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Minterest — Drive Pins</title>
+
+  <link rel="stylesheet" href="styles/main.css?v=6">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#2b2b2b">
+
+  <!-- Firebase compat SDKs (auth + firestore are needed for menu & auth UI) -->
+  <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore-compat.js"></script>
+
+  <!-- ES modules (defer by default) -->
+  <script type="module" src="scripts/pwa.js"></script>
+  <script type="module" src="scripts/config.js"></script>
+  <script type="module" src="scripts/auth.js"></script>
+  <script type="module" src="scripts/menu.js"></script>
+  <script type="module" src="scripts/app.js"></script>
+	<script type="module" src="scripts/refresh.js"></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="app-header">
+    <div class="header-left" style="display:flex; align-items:center; gap:8px;">
+      <span class="logo-badge">Mi</span>
+      <a href="index.html" class="logo italic">Minterest</a>
+    </div>
+    <div class="header-right">
+      <!-- user box -->
+      <div id="user-info" class="user-info" style="display:none;">
+        <img id="user-pic" class="user-pic" src="" alt="User" />
+        <div class="user-text">
+          <span id="user-name"></span>
+          <span id="user-name-first" class="user-name-first"></span>
+          <span id="user-email"></span>
+        </div>
+      </div>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Menu" aria-haspopup="true" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Auth Notice -->
+  <section id="auth-notice" class="auth-notice" style="display:none;">
+    <div class="auth-card">
+      <h2>You are not logged in 🥺</h2>
+      <p>Please log in first to use minterest.If you don’t have an account please sign up.</p>
+      <div class="actions">
+        <a href="login.html" class="btn primary">Login</a>
+        <a href="signup.html" class="btn">Sign Up</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Toggle -->
+  <div class="toggle-bar" id="toggleBar" style="display:none;">
+  <div class="toggle" id="mediaToggle" role="switch" aria-checked="false" tabindex="0" aria-label="Switch between Images and Videos">
+    <span class="option image">Images</span>
+    <span class="option video">Videos</span>
+    <div class="slider"></div>
+  </div>
+</div>
+
+  <!-- Main -->
+  <main class="shell"><section id="grid" aria-live="polite"></section></main>
+
+  <!-- Footer -->
+  <footer><div class="tiny">© <span id="yr"></span> Mehedi • ❤</div></footer>
+  <script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+
+  <!-- FAB + Modal + Toast -->
+  <button id="fab" aria-label="Add" class="fab" disabled style="opacity:.5">+</button>
+
+  <div id="overlay" role="dialog" aria-modal="true">
+    <div class="modal" role="document">
+      <div class="body">
+        <div class="row">
+          <div class="label">Password</div>
+          <div class="input"><input id="password" type="password" placeholder="Enter password" autofocus></div>
+        </div>
+      </div>
+      <div class="foot">
+        <button class="btn" id="btnCancel" type="button">Cancel</button>
+        <button class="btn primary" id="btnAdd" type="button">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast"></div>
+
+  <div id="success-overlay" class="success-overlay">
+    <img src="assets/images/success.jpg" alt="Success" class="success-image"/>
+    <div class="loader"></div>
+  </div>
+
+  <!-- Header dropdown -->
+  <div class="menu" id="headerMenu" hidden><ul></ul></div>
+
+  <style id="mobile-name-toggle">
+  /* ডিফল্ট = মোবাইল: শুধু ছবি + First Name */
+  #user-name, #user-email { display: none !important; }
+  #user-name-first { display: inline !important; }
+
+  /* ডেস্কটপ/ট্যাবলেট (>= 769px): ফুল নেম + ইমেইল */
+  @media (min-width: 769px){
+    #user-name, #user-email { display: inline !important; }
+    #user-name-first { display: none !important; }
+  }
+</style>
+
+<script>
+(function(){
+  const root = document.documentElement;
+  const header = document.querySelector('.app-header');
+
+  function setHeaderHeight(){
+    if(!header) return;
+    const h = Math.round(header.getBoundingClientRect().height || 56);
+    root.style.setProperty('--header-h', h + 'px');
+    // inline padding-top দিয়ে overlap-এর সম্ভাবনা 0
+    document.body.style.paddingTop = h + 'px';
+  }
+
+  setHeaderHeight();
+  window.addEventListener('load', setHeaderHeight);
+  window.addEventListener('resize', setHeaderHeight, {passive:true});
+
+  // Header কনটেন্ট বদলালে (user info/photo/menu open) height আবার সেট করো
+  const mo = new MutationObserver(setHeaderHeight);
+  if (header) mo.observe(header, {childList:true, subtree:true, attributes:true});
+})();
+</script>
+
+</body>
+</html>
