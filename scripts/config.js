@@ -1,3 +1,4 @@
+/* Cleaned & PWA-ready build for Minterest — Drive Pins - 2025-10-08 05:53:35 UTC */
 // scripts/config.js — STRICT Firestore-backed config (no fallbacks, no defaults)
 // REQUIREMENT: settings/app ডকে এই ফিল্ডগুলো থাকতে হবে:
 //   - DRIVE_API_KEY (string, non-empty)

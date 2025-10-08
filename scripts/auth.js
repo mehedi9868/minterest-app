@@ -1,3 +1,4 @@
+/* Cleaned & PWA-ready build for Minterest — Drive Pins - 2025-10-08 05:53:35 UTC */
 // scripts/auth.js — Firebase init + auth state UI + FAB enable/disable + logout
 import { firebaseConfig } from "./config.js";
 

@@ -1,3 +1,4 @@
+/* Cleaned & PWA-ready build for Minterest — Drive Pins - 2025-10-08 05:53:35 UTC */
 // scripts/app.js — Google Drive থেকে ছবি/ভিডিও গ্রিড রেন্ডারার (Firestore runtime config সহ)
 // Dependency: getRuntimeConfigStrictAsync (./config.js)
 // লক্ষ্য: পড়তে সহজ, বাগ-ফিক্সড, অ্যাক্সেসিবল, এবং ভালভাবে ডকুমেন্টেড "ক্লিন কোড"

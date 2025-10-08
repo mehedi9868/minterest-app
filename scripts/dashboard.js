@@ -1,3 +1,4 @@
+/* Cleaned & PWA-ready build for Minterest — Drive Pins - 2025-10-08 05:53:35 UTC */
 // scripts/dashboard.js — CLEAN REBUILD (single debug(), single tryQuery())
 import { firebaseConfig } from './config.js';
 if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);

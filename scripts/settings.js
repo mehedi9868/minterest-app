@@ -1,3 +1,4 @@
+/* Cleaned & PWA-ready build for Minterest — Drive Pins - 2025-10-08 05:53:35 UTC */
 // scripts/settings.js
 // ---
 // লক্ষ্য: কেবল অ্যাডমিনের জন্য সেটিংস পেজ উন্মুক্ত করা।

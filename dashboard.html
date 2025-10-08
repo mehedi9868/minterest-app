@@ -1,6 +1,13 @@
+<!--
+  Cleaned & PWA-ready build for Minterest — Drive Pins
+  Generated on 2025-10-08 05:53:35 (UTC)
+  Includes: manifest, icons, offline page, service worker registration.
+-->
 <!doctype html>
 <html lang="bn">
 <head>
+  <meta name="theme-color" content="#0F172A">
+  <link rel="icon" href="./assets/icons/icon-192.png">
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Dashboard • Minterest</title>
@@ -111,5 +118,13 @@
   }
 </style>
 
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./service-worker.js').catch(console.error);
+      });
+    }
+  </script>
 </body>
 </html>
