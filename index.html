@@ -9,6 +9,19 @@
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#2b2b2b">
 
+  <link rel="manifest" href="./manifest.json" />
+  <meta name="theme-color" content="#0a84ff" />
+  <script>
+  if ('serviceWorker' in navigator) {
+    // লোকালহোস্টে:
+    navigator.serviceWorker.register('/minterest-app/service-worker.js', { scope: '/minterest-app/' });
+
+    // GitHub Pages হলে, repo pathটা দাও (ex: /minterest-app/):
+    // navigator.serviceWorker.register('/minterest-app/service-worker.js', { scope: '/minterest-app/' });
+  }
+  </script>
+
+
   <!-- Firebase compat SDKs (auth + firestore are needed for menu & auth UI) -->
   <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-auth-compat.js"></script>
