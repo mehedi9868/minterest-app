@@ -63,6 +63,22 @@
               🔒 ডিফল্টে ফর্ম হাইড। JS অ্যাডমিন ভেরিফাই করে শো করবে।
               নোট: যদি JS লোড না হয়/ফেইল করে, তখনও ইউজার কিছু এডিট করতে পারবে না।
             -->
+
+ <!-- Guard message: ডিফল্টে অন -->
+          <div id="guard-msg" class="auth-notice" style="margin-top:12px;">
+            <div class="auth-card">
+              <h2>Admin access required 🔐</h2>
+              <p>অ্যাডমিন যাচাই করা হচ্ছে...</p>
+              <div class="actions">
+                <a class="btn primary" href="login.html">Login</a>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
             <form id="settings-form" class="settings-grid" autocomplete="off" style="display:none;">
               <label for="images">Images folder URL</label>
               <input type="url" id="images" placeholder="https://drive.google.com/drive/folders/..." />
@@ -92,16 +108,7 @@
             <div id="diag" class="diag"></div>
           </div>
 
-          <!-- Guard message: ডিফল্টে অন -->
-          <div id="guard-msg" class="auth-notice" style="margin-top:12px;">
-            <div class="auth-card">
-              <h2>Admin access required 🔐</h2>
-              <p>অ্যাডমিন যাচাই করা হচ্ছে...</p>
-              <div class="actions">
-                <a class="btn primary" href="login.html">Login</a>
-              </div>
-            </div>
-          </div>
+         
         </section>
       </main>
     </div>
